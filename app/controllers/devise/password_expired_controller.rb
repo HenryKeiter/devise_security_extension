@@ -11,7 +11,7 @@ class Devise::PasswordExpiredController < DeviseController
   end
 
   def update
-    redirect_to :root if !resource.nil? && resource.need_change_password?
+    redirect_to :root and return if resource.nil?
 
     if resource.update_with_password(resource_params)
       warden.session(scope)['password_expired'] = false
